@@ -2,7 +2,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 import scipy.sparse as sp
 import dolfin
-dolfin.parameters['linear_algebra_backend'] = 'uBLAS'
 
 def fenics_spy(matrix, show=False, title=""):
     """Plot the sparsity pattern of a Dolfin GenericMatrix
@@ -77,8 +76,6 @@ def stitch(funcs, V_fine, c_w, c_h, N_w, N_h):
     for j in range(cells_per_side_h):
         for i in range(cells_per_side_w):
             vertices_f = vtd_f[idc+offset]
-            funcs[j*cells_per_side_w+i].vector()
-            funcs[j*cells_per_side_w+i].vector()[vtd]
             v_f_vec[vertices_f] = funcs[j*cells_per_side_w+i].vector()[vtd]
             offset += c_w*dof_per_vertex
         offset += ((N_w+1)*(c_h-1)+1)*dof_per_vertex
